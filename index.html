@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculadora de IMC</title>
+</head>
+<body>
+    <h1>Calculadora de IMC</h1>
+    <form id="imcForm">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br><br>
+        
+        <label for="altura">Altura (cm):</label>
+        <input type="number" id="altura" name="altura" required><br><br>
+        
+        <label for="peso">Peso (kg):</label>
+        <input type="number" id="peso" name="peso" required><br><br>
+        
+        <input type="submit" value="Calcular IMC">
+    </form>
+
+    <div id="resultado"></div>
+
+    <script>
+        document.getElementById('imcForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+          
+            const nome = document.getElementById('nome').value;
+            const alturaCm = parseFloat(document.getElementById('altura').value);
+            const peso = parseFloat(document.getElementById('peso').value);
+      
+            const alturaM = alturaCm / 100;
+            
+            const imc = peso / (alturaM * alturaM);
+            
+            let classificacao;
+            if (imc < 16) {
+                classificacao = 'Baixo peso muito grave';
+            } else if (imc >= 16 && imc < 17) {
+                classificacao = 'Baixo peso grave';
+            } else if (imc >= 17 && imc < 18.5) {
+                classificacao = 'Baixo peso';
+            } else if (imc >= 18.5 && imc < 25) {
+                classificacao = 'Peso normal';
+            } else if (imc >= 25 && imc < 30) {
+                classificacao = 'Sobrepeso';
+            } else if (imc >= 30 && imc < 35) {
+                classificacao = 'Obesidade grau I';
+            } else if (imc >= 35 && imc < 40) {
+                classificacao = 'Obesidade grau II';
+            } else {
+                classificacao = 'Obesidade grau III';
+            }
+            
+            const resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.innerHTML = `<p>Nome: ${nome}</p>
+                                      <p>IMC: ${imc.toFixed(2)}</p>
+                                      <p>Classificação: ${classificacao}</p>`;
+        });
+    </script>
+</body>
+</html>
